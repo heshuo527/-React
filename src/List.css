@@ -1,0 +1,15 @@
+.list-content {
+    display: inline;
+  }
+
+.list-content.done {
+    display: inline-block;
+    text-decoration: line-through;
+    background-color: aqua;
+}
+
+.todo-time {
+  display: inline;
+  color: rgb(53, 125, 250);
+  margin-right: 20px;
+}

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .gua{
+            height: 150px;
+            width: 100px;
+            background-color: aqua;
+            overflow: auto;
+        }
+        .gua1{
+            height: 30px;
+        }
+    </style>
+    
+</head>
+<body>
+
+    <div id="root"></div>
+
+    <!-- 引入react核心库 -->
+    <script type="text/javascript" src="../依赖包/react.development.js"></script>
+    <!-- 引入reactDOM -->
+    <script type="text/javascript" src="../依赖包/react-dom.development.js"></script>
+    <!-- babel将页面转化成js -->
+    <script type="text/javascript" src="../依赖包/babel.min.js"></script>
+
+    <script type="text/babel">
+        class News extends React.Component{
+
+            //初始化状态
+            state = {newsGua:[]}
+
+            //在更新之前获取到它的高度
+            getSnapshotBeforeUpdate() {
+                return this.refs.list.scrollHeight
+            }
+
+            //完成更新
+            componentDidUpdate(preProps, preState, height) {
+                this.refs.list.scrollTop += this.refs.list.scrollHeight - height
+            }
+
+            //完成挂载钩子
+            componentDidMount() {
+                console.log('news---componentDidMount');
+                setInterval(() =>{
+                    //获取原状态
+                    const {newsGua} = this.state
+                    //模拟一条新闻
+                    const news = '新闻' + (newsGua.length + 1)
+                    //更新状态
+                    this.setState({newsGua:[news, ...newsGua]})
+                },1000)
+            }
+
+            render() {
+                return(
+                    <div className='gua' ref="list">
+                        {
+                            //遍历
+                            this.state.newsGua.map((n, index) => {
+                                return <div key={index} className='gua1'>{n}</div>
+                            })
+                        }   
+                    </div>
+                )
+            }
+        }
+        ReactDOM.render(<News/>, document.getElementById('root'))
+    </script>
+
+</body>
+</html>
