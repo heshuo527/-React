@@ -83,3 +83,27 @@
             注册路由(无需声明接收):<Route path='/home/message/detail' component={Detail}>
             参数接收:const {id, title} = this.props.location.state
             备注:刷新页面也可以保留住参数
+    11.编程式路由导航
+        借助this.props.history对象上的api对操作路由跳转,前进,后退
+            this.props.push()
+            this.props.replace()
+            this.props.history.goBack()
+            this.props.history.goForward()
+            this.props.history.go()
+
+    12.whitRoute的使用
+        1.whitRoute可以加工一般组件,让一般组件具备路由组件的所有的api
+        2.whitRoute返回的是一个新组件
+        export default withRouter(Header(一般组件名))
+        
+    13.BrowserRoute和HashRoute的区别
+        1.底层原理不一样
+            BrowserRoute使用的是h5的history api,不兼容IE9以下的浏览器
+            HashRoute使用的是URL的哈希值
+        2.url表现形式不一样
+            BrowserRoute的路径中没有#,例如localhost:3000/home/test
+            HashRoute的路径包含#,例如:localhost:3000/home/#/test
+        3.刷新后对路由state参数的影响
+            1.BrowserRoute没有任何影响,因为state保存在history对象中
+            2.HashRoute刷新后会导致路由state参数的丢失
+        4.备注:HashRoute可以用于解决一些路径错误的问题
